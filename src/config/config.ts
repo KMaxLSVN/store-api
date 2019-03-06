@@ -8,7 +8,7 @@ export default {
   DB_DIALECT: process.env.DB_DIALECT || "mongo",
   DB_HOST:
     process.env.DB_HOST ||
-    "mongodb://sa:sapassword@cluster0-shard-00-00-vkwgu.mongodb.net:27017,cluster0-shard-00-01-vkwgu.mongodb.net:27017,cluster0-shard-00-02-vkwgu.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true",
+    "mongodb+srv://sa:sapassword@cluster0-vkwgu.mongodb.net/test?retryWrites=true",
   DB_NAME: process.env.DB_NAME || "example_db",
   DB_PASSWORD: process.env.DB_PASSWORD || "db-password",
   DB_PORT: process.env.DB_PORT || "27017",
