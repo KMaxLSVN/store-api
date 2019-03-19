@@ -1,34 +1,31 @@
-import * as mongoose from "mongoose";
-const Schema = mongoose.Schema;
+import sequelize from "../../config/db.connection";
+import * as Sequelize from "sequelize";
 
-const UserSchema = Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    lastName: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      unique: true,
-      match: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
-      required: true,
-      trim: true
-    },
-    password: {
-      type: String,
-      required: true,
-      trim: true
-    }
+export const users: any = sequelize.define("user", {
+  id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true
   },
-  {
-    timestamps: true,
-    useNestedStrict: true
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: { isEmail: { msg: "Invalid email" } }
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
   }
-);
+});
 
-export default mongoose.model("User", UserSchema);
+export interface User {
+  id: number;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+}
