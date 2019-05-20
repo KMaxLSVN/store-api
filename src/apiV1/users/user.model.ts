@@ -20,6 +20,18 @@ export const users: any = sequelize.define("user", {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     allowNull: false
+  },
+  userName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: true
   }
 });
 
@@ -28,4 +40,7 @@ export interface User {
   email: string;
   password: string;
   isAdmin: boolean;
+  userName?: string;
+  firstName?: string;
+  lastName?: string;
 }

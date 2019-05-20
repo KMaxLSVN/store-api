@@ -1,5 +1,6 @@
 import * as jwt from "jwt-then";
 import config from "../config/config";
+
 const verifyAdmin = async (req, res, next): Promise<any> => {
   if (!req.headers.authorization)
     return res.status(403).send({ auth: false, message: "No token provided." });

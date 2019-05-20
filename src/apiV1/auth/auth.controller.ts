@@ -48,7 +48,10 @@ export default class UserController {
       id: null,
       email: req.body.email,
       isAdmin: false,
-      password: await bcrypt.hash(req.body.password, config.SALT_ROUNDS)
+      password: await bcrypt.hash(req.body.password, config.SALT_ROUNDS),
+      userName: req.body.userName,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
     };
     try {
       await new AuthService().register(user);

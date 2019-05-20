@@ -1,6 +1,8 @@
 import CONFIG from "./config";
 import { Sequelize } from "sequelize";
 
+
+console.log( CONFIG.DB_CONNECTION.user);
 const conn = new Sequelize(
   CONFIG.DB_CONNECTION.database,
   CONFIG.DB_CONNECTION.user,
