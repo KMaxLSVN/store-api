@@ -1,6 +1,7 @@
 import app from "./App";
 import CONFIG from "./config/config";
-import "./config/db.seed";
+// Refresh db
+// import "./config/db.seed";
 
 const PORT = CONFIG.PORT;
 
