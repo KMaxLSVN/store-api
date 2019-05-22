@@ -53,57 +53,66 @@ export default class UserController {
   };
 
   public update = async (req: Request, res: Response): Promise<any> => {
-    // const { name, lastName, email, password } = req.body;
-    // try {
-    //   const userUpdated = await User.findByIdAndUpdate(
-    //     req.params.id,
-    //     {
-    //       $set: {
-    //         name,
-    //         lastName,
-    //         email,
-    //         password
-    //       }
-    //     },
-    //     { new: true }
-    //   );
-    //   if (!userUpdated) {
-    //     return res.status(404).send({
-    //       success: false,
-    //       message: 'User not found',
-    //       data: null
-    //     });
-    //   }
-    //   res.status(200).send({
-    //     success: true,
-    //     data: userUpdated
-    //   });
-    // } catch (err) {
-    //   res.status(500).send({
-    //     success: false,
-    //     message: err.toString(),
-    //     data: null
-    //   });
-    // }
+    const { userName, firstName, lastName, email, password } = req.body;
+    try {
+      const userUpdated = await users.update(
+        // {
+        //   $set: {
+        //     userName,
+        //     firstName,
+        //     lastName,
+        //     email,
+        //     password
+        //   }
+        // },
+        req.body,
+        { where: {id: req.params.id}, returning: true}
+      );
+      if (!userUpdated) {
+        return res.status(404).send({
+          success: false,
+          message: 'User not found',
+          data: null
+        });
+      }
+      const returnUserUpdated = await users.findByPk(req.params.id);
+      if(!returnUserUpdated) throw ('Error while Fetching Data')
+      res.status(200).send({
+        success: true,
+        data: returnUserUpdated
+      });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: err.toString(),
+        data: null
+      });
+    }
   };
 
   public remove = async (req: Request, res: Response): Promise<any> => {
-    // try {
-    //   const user = await User.findByIdAndRemove(req.params.id);
-    //   if (!user) {
-    //     return res.status(404).send({
-    //       success: false,
-    //       message: 'User not found',
-    //       data: null
-    //     });
-    //   }
-    //   res.status(204).send();
-    // } catch (err) {
-    //   res.status(500).send({
-    //     success: false,
-    //     message: err.toString(),
-    //     data: null
-    //   });
-    // }
+    try {
+      const user = await users.destroy(
+        {where: {id: req.params.id}}
+        );
+      if (!user) {
+        return res.status(404).send({
+          success: false,
+          message: 'User not found',
+          data: null
+        });
+      }
+      res.status(204).send({
+        success: true,
+        message: 'User was deleted',
+        data: user
+      });
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: err.toString(),
+        data: null
+      });
+    }
   };
 }

@@ -15,7 +15,7 @@ export const users: any = sequelize.define("user", {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
@@ -23,15 +23,33 @@ export const users: any = sequelize.define("user", {
   },
   userName: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
+    validate: {
+      len: {
+        args: [3,3],
+        msg: "Password must conatain atleast 3 symbols"
+      }
+    }
   },
   firstName: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
+    validate: {
+      len: {
+        args: [2,2],
+        msg: 'First Name must be atleast 2 characters in length'
+      }
+    }
   },
   lastName: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
+    validate: {
+      len: {
+        args: [2,2],
+        msg: 'Last Name must be atleast 2 characters in length'
+      }
+    }
   }
 });
 
