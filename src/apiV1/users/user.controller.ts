@@ -75,11 +75,9 @@ export default class UserController {
           data: null
         });
       }
-      const returnUserUpdated = await users.findByPk(req.params.id);
-      if(!returnUserUpdated) throw ('Error while Fetching Data')
       res.status(200).send({
         success: true,
-        data: returnUserUpdated
+        data: userUpdated
       });
     } catch (err) {
       res.status(500).send({

@@ -33,7 +33,7 @@ export default class UserController {
       res.status(200).send({
         success: true,
         message: "Token generated Successfully",
-        data: token
+        token: token
       });
     } catch (err) {
       res.status(500).send({

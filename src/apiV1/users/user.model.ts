@@ -26,7 +26,7 @@ export const users: any = sequelize.define("user", {
     allowNull: true,
     validate: {
       len: {
-        args: [3,3],
+        args: [3,15],
         msg: "Password must conatain atleast 3 symbols"
       }
     }
@@ -36,7 +36,7 @@ export const users: any = sequelize.define("user", {
     allowNull: true,
     validate: {
       len: {
-        args: [2,2],
+        args: [2,15],
         msg: 'First Name must be atleast 2 characters in length'
       }
     }
@@ -46,7 +46,7 @@ export const users: any = sequelize.define("user", {
     allowNull: true,
     validate: {
       len: {
-        args: [2,2],
+        args: [2,15],
         msg: 'Last Name must be atleast 2 characters in length'
       }
     }
