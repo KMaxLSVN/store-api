@@ -10,7 +10,7 @@ const controller = new Controller();
 user.get('/', verifyAdmin, controller.findAll);
 
 // Retrieve a Specific User
-user.get('/:id', verifyToken, controller.findOne);
+user.get('/:id', verifyToken, controller.findById);
 
 // Update a User with Id
 user.put('/:id', verifyAdmin, controller.update);

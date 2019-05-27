@@ -29,7 +29,7 @@ export default class UserController {
     }
   };
 
-  public findOne = async (req: Request, res: Response): Promise<any> => {
+  public findById = async (req: Request, res: Response): Promise<any> => {
     try {
       const user = await users.findByPk(req.params.id);
       if (!user) {

@@ -4,6 +4,8 @@ import * as jwt from "jwt-then";
 import config from "../../config/config";
 import { User } from "../users/user.model";
 import { AuthService } from "../../services/authService";
+import errorRegister from "../../helpers/errorRegister";
+
 
 export default class UserController {
   public authenticate = async (req: Request, res: Response): Promise<any> => {
@@ -61,10 +63,17 @@ export default class UserController {
         data: user
       });
     } catch (err) {
-      res.status(500).send({
-        success: false,
-        message: err.errors[0].message
-      });
+      if(err instanceof errorRegister){
+        res.status(400).send({
+          success: false,
+          message: err.message          
+        })
+      } else {
+        res.status(500).send({
+          success: false,
+          message: err.errors[0].message
+        });
+      }
     }
   };
 }
