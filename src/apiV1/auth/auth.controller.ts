@@ -58,7 +58,7 @@ export default class UserController {
     try {
       await new AuthService().register(user);
       res.status(200).send({
-        success: false,
+        success: true,
         message: "User Successfully created",
         data: user
       });
