@@ -56,11 +56,11 @@ export default class UserController {
       lastName: req.body.lastName
     };
     try {
-      await new AuthService().register(user);
+     let newUser = await new AuthService().register(user);
       res.status(200).send({
         success: true,
         message: "User Successfully created",
-        data: user
+        data: newUser
       });
     } catch (err) {
       if(err instanceof errorRegister){

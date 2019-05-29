@@ -11,13 +11,13 @@ export class AuthService {
     if (user) return user;
   }
 
-  public async register(user: User) {
+  public async register(user: User): Promise<User> {
     // await users.create(user);
-    let regUser = (await users.findOne({
+    let isExist = (await users.findOne({
       where: { email: user.email }
     }))
-    if(!regUser){
-      users.create(user);
+    if(!isExist){
+      return users.create(user);
     } else {
       throw new errorRegister('User is already existed', 400);
     }
