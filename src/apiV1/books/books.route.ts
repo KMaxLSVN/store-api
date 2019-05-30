@@ -9,7 +9,7 @@ const controller = new Controller();
 book.get("/:page", controller.getBooks);
 
 // Retrieve a Specific book
-book.get("/page/:bookCode", controller.getBookByCode);
+book.get("/:page/:bookCode", controller.getBookByCode);
 
 // Add a book
 book.post("/",verifyAdmin, controller.addBook);
