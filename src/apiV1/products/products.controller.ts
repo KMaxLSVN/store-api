@@ -23,12 +23,38 @@ export default class ProductsController {
     }
   };
 
+  public getProductByCode = async (req: Request, res: Response): Promise<any> => {
+    try{
+      const product: Product = req.body;
+      const result = await new ProductService().getProductByCode(product.bookCode);
+      if(!result) {
+        return res.status(404).send({
+          success: false,
+          message: "Product not found",
+          data: null
+        })
+      }
+      res.status(200).send({
+        success: true,
+        data: result
+      })
+    } catch (err) {
+      res.status(500).send({
+        success: false,
+        message: err.toString(),
+        data: null
+      })
+    }
+  };
+
   public addProduct = async (req: Request, res: Response): Promise<any> => {
     try {
       var product: Product = req.body;
-      await new ProductService().addProduct(product);
+      const createdProduct = await new ProductService().addProduct(product);
       res.status(200).send({
-        success: true
+        success: true,
+        message: "Book successfully created",
+        data: createdProduct
       });
     } catch (err) {
       res.status(500).send({

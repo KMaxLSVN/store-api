@@ -6,6 +6,7 @@ import * as Sequelize from "sequelize";
 import sequelize from "../config/db.connection";
 
 import { products } from "../apiV1/products/products.model";
+import errorRegister from "../helpers/errorRegister";
 
 export class ProductService {
   public async getProducts(page: number): Promise<Product[]> {
@@ -14,7 +15,22 @@ export class ProductService {
       offset: page
     });
   }
-  public async addProduct(product: Product) {
-    await products.create(product);
+
+  public async getProductByCode(bookCode: string){
+    const product = (await products.findOne({
+      where: { bookCode: bookCode }
+    })) as Product;
+    if (product) return product;
+  }
+
+  public async addProduct(product: Product): Promise<Product> {
+    let isExist = (await products.findOne({
+      where: { bookCode: product.bookCode }
+    })) as Product;
+    if(!isExist){
+      return products.create(product);
+    } else {
+      throw new errorRegister('Product is existed', 400)
+    }
   }
 }

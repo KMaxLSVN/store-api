@@ -53,20 +53,20 @@ export default class UserController {
   };
 
   public update = async (req: Request, res: Response): Promise<any> => {
-    const { userName, firstName, lastName, email, password } = req.body;
+    const { firstName, lastName } = req.body;
     try {
       const userUpdated = await users.update(
         // {
         //   $set: {
-        //     userName,
+        //     // userName,
         //     firstName,
         //     lastName,
-        //     email,
-        //     password
+        //     // email,
+        //     // password
         //   }
         // },
         req.body,
-        { where: {id: req.params.id}, returning: true}
+        { where: {id: req.params.id}}
       );
       if (!userUpdated) {
         return res.status(404).send({
@@ -112,5 +112,5 @@ export default class UserController {
         data: null
       });
     }
-  };
+  }
 }

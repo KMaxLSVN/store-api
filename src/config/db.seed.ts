@@ -10,6 +10,8 @@ import { User, users } from "../apiV1/users/user.model";
 
 import { ProductService } from "../services/productsService";
 import { Product, products } from "../apiV1/products/products.model";
+import { books, Book } from "../apiV1/books/books.model";
+import { BookService } from "../services/booksService";
 
 export default (async () => {
   try {
@@ -34,6 +36,20 @@ export default (async () => {
     // };
 
     // await new ProductService().addProduct(product);
+    
+    await books.sync( {force: true});
+
+    const book: Book = {
+      id: null,
+      bookCode: "test",
+      title: "test",
+      authors: "test1,test2",
+      price: 99.99,
+      quantity: 7,
+      description: "test-test-test test-test-test"
+    }
+    await new BookService().addBook(book);
+
   } catch (err) {
     console.log(err);
     console.log(`${err} Could not Connect to the Database. Exiting Now...`);
