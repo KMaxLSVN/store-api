@@ -11,13 +11,17 @@ book.get("/:page", controller.getBooks);
 // Retrieve a Specific book
 book.get("/page/:bookCode", controller.getBookByCode);
 
+// Search a Specific book
+book.get("/page/", controller.search);
+
 // Add a book
 book.post("/",verifyAdmin, controller.addBook);
 
 // Update a book with bookCode
-book.put('/:bookCode', verifyAdmin, controller.update)
+book.put('/:bookCode', verifyAdmin, controller.update);
 
 // Delete a book with bookCode
-book.delete('/:bookCode', verifyAdmin, controller.remove)
+book.delete('/:bookCode', verifyAdmin, controller.remove);
+
 
 export default book;

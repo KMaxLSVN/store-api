@@ -5,6 +5,7 @@ import config from "../../config/config";
 import { Book, books } from "./books.model";
 import { BookService } from "../../services/booksService";
 import conn from "../../config/db.connection";
+import sequelize = require("sequelize");
 
 export default class BooksController {
   
@@ -32,8 +33,7 @@ export default class BooksController {
       }
     };
   
-    public getBookByCode = async (req: Request, res: Response): Promise<any> => {
-       
+    public getBookByCode = async (req: Request, res: Response): Promise<any> => {       
       try{
         const book: Book = req.params;
        
@@ -136,7 +136,9 @@ export default class BooksController {
     public search = async (req: Request, res: Response): Promise<any> => {
         try {
             const argument = req.params;
-            const searchResult = await conn.query("SELECT * FROM `books` WHERE `title` LIKE '%argument%'");
+            const searchResult = await conn.query('SELECT * FROM books WHERE title LIKE param = %$argument%',
+              { bind: {param: argument}, type: sequelize.QueryTypes.SELECT }
+            )
             if(!searchResult) {
                 return res.status(404).send({
                     success: false,
