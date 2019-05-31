@@ -45,7 +45,7 @@ export default (async () => {
       title: "test",
       authors: "test1,test2",
       price: 99.99,
-      quantity: 7,
+      amount: 7,
       description: "test-test-test test-test-test"
     }
     await new BookService().addBook(book);

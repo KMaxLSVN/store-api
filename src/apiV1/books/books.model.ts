@@ -49,12 +49,12 @@ export const books: any = sequelize.define("book", {
         }
       }
     },
-    quantity: {
+    amount: {
       type: Sequelize.INTEGER,
       allowNull: false,
       validate: {
         isNumeric: {
-          msg: "Quantity must be a number"
+          msg: "Amount must be a number"
         }
       }
     },
@@ -63,7 +63,7 @@ export const books: any = sequelize.define("book", {
       allowNull: true,
       validate: {
         len: {
-          args: [5, 200],
+          args: [3, 200],
           msg: "Description must conatain atleast 5 symbols"
         }
       }
@@ -76,9 +76,10 @@ export const books: any = sequelize.define("book", {
     title: string;
     authors: string;
     price: number;
-    quantity: number;
+    amount: number;
     pages?: number;
     rating?: number;
     image?: string;
     description?: string;
+    quantity?: number;
   }

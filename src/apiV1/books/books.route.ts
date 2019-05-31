@@ -12,7 +12,7 @@ book.get("/:page", controller.getBooks);
 book.get("/:page/:bookCode", controller.getBookByCode);
 
 // Search a Specific book
-book.get("/page/", controller.search);
+book.get("/:page/search/:query", controller.search);
 
 // Add a book
 book.post("/",verifyAdmin, controller.addBook);

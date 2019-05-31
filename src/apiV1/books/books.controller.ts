@@ -135,11 +135,12 @@ export default class BooksController {
 
     public search = async (req: Request, res: Response): Promise<any> => {
         try {
-            const argument = req.params;
-            const searchResult = await conn.query('SELECT * FROM books WHERE title LIKE param = %$argument%',
-              { bind: {param: argument}, type: sequelize.QueryTypes.SELECT }
+            const argument = req.params.query;
+            const searchResult = await conn.query('SELECT * FROM books WHERE title LIKE $1',
+              { bind: [`%${argument}%`], type: sequelize.QueryTypes.SELECT }
+              // { replacements: { search_name: `%${argument}%`  }, type: sequelize.QueryTypes.SELECT }
             )
-            if(!searchResult) {
+            if(!(searchResult && searchResult.length)) {
                 return res.status(404).send({
                     success: false,
                     message: 'Book does not exist in db',
