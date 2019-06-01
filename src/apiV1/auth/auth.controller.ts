@@ -5,10 +5,13 @@ import config from "../../config/config";
 import { User } from "../users/user.model";
 import { AuthService } from "../../services/authService";
 import errorRegister from "../../helpers/errorRegister";
+import { sessionHandler } from "../../helpers/sessionHandler";
+
+
 
 
 export default class UserController {
-  public authenticate = async (req: Request, res: Response): Promise<any> => {
+  public authenticate = async (req:  Request, res: Response): Promise<any> => {
     const { email, password } = req.body;
     try {
       const user = await new AuthService().getUserByEmail(email);
@@ -32,6 +35,8 @@ export default class UserController {
           expiresIn: config.JWT_EXPIRATION
         }
       );
+      sessionHandler.setSession(req, {user, token} );
+      sessionHandler.getCurrentSeesion(req);
       res.status(200).send({
         success: true,
         message: "Token generated Successfully",
@@ -44,6 +49,11 @@ export default class UserController {
       });
     }
   };
+
+  public getSession = async (req: Request, res: Response) => {
+    const user = sessionHandler.getCurrentSeesion(req)
+    res.status(200).send(user);
+  }
 
   public register = async (req: Request, res: Response): Promise<any> => {
     const user: User = {

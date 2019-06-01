@@ -13,6 +13,6 @@ export default {
     password: process.env.DB_PASSWORD || "password"
   },
   JWT_ENCRYPTION: process.env.JWT_ENCRYPTION || "jwt_please_change",
-  JWT_EXPIRATION: process.env.JWT_EXPIRATION || "1h",
+  JWT_EXPIRATION: process.env.JWT_EXPIRATION || 300,
   SALT_ROUNDS: process.env.SALT_ROUNDS || 10
 };
